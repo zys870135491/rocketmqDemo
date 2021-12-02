@@ -30,4 +30,26 @@ public class MqTest {
         }
     }
 
+    @Test
+    public void baseSyncMq(){
+
+        mqService.BaseSyncMq();
+        try {
+            Thread.sleep(100*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void baseAsyncMq(){
+
+        mqService.BaseAsyncMq();
+        try {
+            Thread.sleep(100*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

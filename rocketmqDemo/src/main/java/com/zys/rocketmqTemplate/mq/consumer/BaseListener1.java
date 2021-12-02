@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
  * RocketMQListener<>泛型必须和接收的消息类型相同
  */
 @Component
-@RocketMQMessageListener(topic = "pi_base_topic" , consumerGroup = "PP_BASE")
+@RocketMQMessageListener(topic = "pi_base_topic" , consumerGroup = "PP_BASE1")
 @Slf4j
-public class BaseListener implements RocketMQListener<OrderStep> {
+public class BaseListener1 implements RocketMQListener<OrderStep> {
 
     @Override
     public void onMessage(OrderStep orderStep) {
-        log.info("BaseListener orderStep:{}",orderStep);
+        log.info("BaseListener1 orderStep:{}",orderStep);
     }
 
 }
