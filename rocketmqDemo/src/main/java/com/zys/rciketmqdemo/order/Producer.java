@@ -26,6 +26,7 @@ public class Producer {
         // 订单列表
         //构建消息集合
         List<OrderStep> orderList = OrderStep.buildOrders();
+
         for (int i = 0; i < 10; i++) {
             // 加个时间前缀
             String body = sdf.format(new Date()) + " Hello RocketMQ " + orderList.get(i);
