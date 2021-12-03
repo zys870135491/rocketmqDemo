@@ -2,9 +2,9 @@ package com.zys.rocketmqTemplate.mq.service;
 
 
 import com.zys.rciketmqdemo.order.OrderStep;
-import com.zys.rocketmqTemplate.mq.producer.BaseAsyncSendProducer;
-import com.zys.rocketmqTemplate.mq.producer.BaseProducer;
-import com.zys.rocketmqTemplate.mq.producer.BaseSyncSendProducer;
+import com.zys.rocketmqTemplate.mq.producer.base.BaseAsyncSendProducer;
+import com.zys.rocketmqTemplate.mq.producer.base.BaseProducer;
+import com.zys.rocketmqTemplate.mq.producer.base.BaseSyncSendProducer;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,6 +20,7 @@ public class MqServiceImpl {
     private final BaseSyncSendProducer baseSyncSendProducer;
 
     private final BaseAsyncSendProducer baseAsyncSendProducer;
+
 
     public MqServiceImpl(BaseProducer baseProducer, BaseSyncSendProducer baseSyncSendProducer, BaseAsyncSendProducer baseAsyncSendProducer) {
         this.baseProducer = baseProducer;

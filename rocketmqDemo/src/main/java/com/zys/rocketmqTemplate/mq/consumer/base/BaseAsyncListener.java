@@ -1,4 +1,4 @@
-package com.zys.rocketmqTemplate.mq.consumer;
+package com.zys.rocketmqTemplate.mq.consumer.base;
 
 import com.zys.rciketmqdemo.order.OrderStep;
 import lombok.extern.slf4j.Slf4j;
@@ -9,18 +9,23 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: Pine
  * @Date: 2021/12/02/4:29 下午
- * @Desc: 普通消息消费者
+ * @Desc: 普通消息消费者(异步的方式)
  * 1.如果两个消费者group和topic都一样，则二者轮循接收消息
  * 2.如果两个消费者topic一样，而group不一样，则消息变成广播机制
  * RocketMQListener<>泛型必须和接收的消息类型相同
  */
 @Component
-@RocketMQMessageListener(topic = "pi_base_topic" , consumerGroup = "PP_BASE")
+@RocketMQMessageListener(topic = "pi_base_async_topic" , consumerGroup = "PP_ASYNC_BASE")
 @Slf4j
-public class BaseListener implements RocketMQListener<OrderStep> {
+public class BaseAsyncListener implements RocketMQListener<OrderStep> {
 
     @Override
     public void onMessage(OrderStep orderStep) {
+        try {
+            Thread.sleep(10*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         log.info("BaseListener orderStep:{}",orderStep);
     }
 

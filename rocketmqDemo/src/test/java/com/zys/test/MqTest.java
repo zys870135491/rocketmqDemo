@@ -52,4 +52,15 @@ public class MqTest {
         }
     }
 
+    @Test
+    public void baseRetryMq(){
+
+        mqService.BaseRetryMq();
+        try {
+            Thread.sleep(100*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

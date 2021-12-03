@@ -1,7 +1,8 @@
-package com.zys.rocketmqTemplate.mq.producer;
+package com.zys.rocketmqTemplate.mq.producer.base;
 
 import com.zys.rciketmqdemo.order.OrderStep;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
@@ -16,17 +17,23 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class BaseSyncSendProducer {
+public class BaseAsyncSendProducer {
     @Autowired
     RocketMQTemplate rocketMQTemplate;
 
 
-    public void baseSync(OrderStep orderStep){
-        SendResult sendResult = rocketMQTemplate.syncSend("pi_base_sync_topic", orderStep);
-        log.info("sendResult: {}",sendResult);
-        if(sendResult.getSendStatus().equals(SendStatus.SEND_OK)){
-            log.error("消息发送成功");
-        }
+    public void baseAsync(OrderStep orderStep){
+       rocketMQTemplate.asyncSend("pi_base_async_topic", orderStep, new SendCallback() {
+            @Override
+            public void onSuccess(SendResult sendResult) {
+                log.info("sendResult:{}",sendResult);
+            }
+
+            @Override
+            public void onException(Throwable throwable) {
+                log.info("发送异常:{}",throwable);
+            }
+        },10*1000);
 
     }
 }

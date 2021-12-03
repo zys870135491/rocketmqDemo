@@ -1,4 +1,4 @@
-package com.zys.rocketmqTemplate.mq.producer;
+package com.zys.rocketmqTemplate.mq.producer.base;
 
 import com.zys.rciketmqdemo.order.OrderStep;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
@@ -18,7 +18,7 @@ public class BaseProducer {
 
 
     public void base(OrderStep orderStep){
-        rocketMQTemplate.convertAndSend("pi_topic",orderStep);
+        rocketMQTemplate.convertAndSend("pi_base_topic",orderStep);
     }
 
 }
