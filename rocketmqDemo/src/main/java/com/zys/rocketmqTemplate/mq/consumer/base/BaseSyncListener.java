@@ -21,11 +21,6 @@ public class BaseSyncListener implements RocketMQListener<OrderStep> {
 
     @Override
     public void onMessage(OrderStep orderStep) {
-        try {
-            Thread.sleep(10*1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         log.info("BaseListener orderStep:{}",orderStep);
     }
 

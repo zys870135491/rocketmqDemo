@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: Pine
  * @Date: 2021/12/02/5:46 下午
- * @Desc: 普通消息的同步方法
- * 这种可靠性同步地发送方式使用的比较广泛，比如：重要的消息通知，短信通知。
+ * @Desc: 普通消息的异步消息
+ *  Producer 首先构建一个向 broker 发送消息的任务，把该任务提交给线程池，等执行完该任务时，回调用户自定义的回调函数，执行处理结果。
  */
 @Component
 @Slf4j

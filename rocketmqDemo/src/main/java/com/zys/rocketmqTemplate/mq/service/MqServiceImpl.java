@@ -5,6 +5,7 @@ import com.zys.rciketmqdemo.order.OrderStep;
 import com.zys.rocketmqTemplate.mq.producer.base.BaseAsyncSendProducer;
 import com.zys.rocketmqTemplate.mq.producer.base.BaseProducer;
 import com.zys.rocketmqTemplate.mq.producer.base.BaseSyncSendProducer;
+import com.zys.rocketmqTemplate.mq.producer.order.OrderProducer;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,11 +22,14 @@ public class MqServiceImpl {
 
     private final BaseAsyncSendProducer baseAsyncSendProducer;
 
+    private final OrderProducer orderProducer;
 
-    public MqServiceImpl(BaseProducer baseProducer, BaseSyncSendProducer baseSyncSendProducer, BaseAsyncSendProducer baseAsyncSendProducer) {
+
+    public MqServiceImpl(BaseProducer baseProducer, BaseSyncSendProducer baseSyncSendProducer, BaseAsyncSendProducer baseAsyncSendProducer, OrderProducer orderProducer) {
         this.baseProducer = baseProducer;
         this.baseSyncSendProducer = baseSyncSendProducer;
         this.baseAsyncSendProducer = baseAsyncSendProducer;
+        this.orderProducer = orderProducer;
     }
 
     /**
@@ -60,6 +64,19 @@ public class MqServiceImpl {
         orderStep.setOrderId(123);
         orderStep.setDesc(String.format("订单编号 %s","123"));
         baseAsyncSendProducer.baseAsync(orderStep);
+
+    }
+
+    /**
+     * 顺序消费
+     */
+    public void orderMq(){
+        for(int i = 0 ;i<10; i++){
+            OrderStep orderStep = new OrderStep();
+            orderStep.setOrderId(i);
+            orderStep.setDesc(String.format("订单编号 %s",i));
+            orderProducer.Order(orderStep);
+        }
 
     }
 

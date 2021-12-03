@@ -11,21 +11,18 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: Pine
  * @Date: 2021/12/02/5:46 下午
- * @Desc: 普通消息的同步方法
- * 	Producer 向 broker 发送消息，阻塞当前线程等待 broker 响应 发送结果。
+ * @Desc: Oneway发送
+ * 	Oneway 方式只负责发送请求，不等待应答，Producer只负责把请求发出去，而不处理响应结果。
  */
 @Component
 @Slf4j
-public class BaseSyncSendProducer {
+public class BaseOnewaySendProducer {
     @Autowired
     RocketMQTemplate rocketMQTemplate;
 
     public void baseSync(OrderStep orderStep){
-        SendResult sendResult = rocketMQTemplate.syncSend("pi_base_sync_topic", orderStep);
-        log.info("sendResult: {}",sendResult);
-        if(sendResult.getSendStatus().equals(SendStatus.SEND_OK)){
-            log.error("消息发送成功");
-        }
+
+        rocketMQTemplate.sendOneWay("pi_base_oneway_topic",orderStep);
 
     }
 }

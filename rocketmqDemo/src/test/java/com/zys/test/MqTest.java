@@ -53,9 +53,9 @@ public class MqTest {
     }
 
     @Test
-    public void baseRetryMq(){
+    public void orderMq(){
 
-        mqService.BaseRetryMq();
+        mqService.orderMq();
         try {
             Thread.sleep(100*1000);
         } catch (InterruptedException e) {
