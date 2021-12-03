@@ -5,6 +5,7 @@ import com.zys.rciketmqdemo.order.OrderStep;
 import com.zys.rocketmqTemplate.mq.producer.base.BaseAsyncSendProducer;
 import com.zys.rocketmqTemplate.mq.producer.base.BaseProducer;
 import com.zys.rocketmqTemplate.mq.producer.base.BaseSyncSendProducer;
+import com.zys.rocketmqTemplate.mq.producer.delay.DelayProducer;
 import com.zys.rocketmqTemplate.mq.producer.order.OrderProducer;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +18,18 @@ import org.springframework.stereotype.Service;
 public class MqServiceImpl {
 
     private final BaseProducer baseProducer;
-
     private final BaseSyncSendProducer baseSyncSendProducer;
-
     private final BaseAsyncSendProducer baseAsyncSendProducer;
-
     private final OrderProducer orderProducer;
+    private final DelayProducer delayProducer;
 
 
-    public MqServiceImpl(BaseProducer baseProducer, BaseSyncSendProducer baseSyncSendProducer, BaseAsyncSendProducer baseAsyncSendProducer, OrderProducer orderProducer) {
+    public MqServiceImpl(BaseProducer baseProducer, BaseSyncSendProducer baseSyncSendProducer, BaseAsyncSendProducer baseAsyncSendProducer, OrderProducer orderProducer, DelayProducer delayProducer) {
         this.baseProducer = baseProducer;
         this.baseSyncSendProducer = baseSyncSendProducer;
         this.baseAsyncSendProducer = baseAsyncSendProducer;
         this.orderProducer = orderProducer;
+        this.delayProducer = delayProducer;
     }
 
     /**
@@ -77,6 +77,17 @@ public class MqServiceImpl {
             orderStep.setDesc(String.format("订单编号 %s",i));
             orderProducer.Order(orderStep);
         }
+
+    }
+
+    /**
+     * 延时消费
+     */
+    public void delayMq(){
+        OrderStep orderStep = new OrderStep();
+        orderStep.setOrderId(123);
+        orderStep.setDesc(String.format("订单编号 %s","123"));
+        delayProducer.delay(orderStep);
 
     }
 

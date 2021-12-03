@@ -63,4 +63,15 @@ public class MqTest {
         }
     }
 
+    @Test
+    public void delayMq(){
+
+        mqService.delayMq();
+        try {
+            Thread.sleep(10000*1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
